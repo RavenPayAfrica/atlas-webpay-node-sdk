@@ -1,1 +1,3 @@
-export { default as AtlasPay } from './atlaspay'
+import AtlasPay from "./atlaspay";
+
+export {AtlasPay}

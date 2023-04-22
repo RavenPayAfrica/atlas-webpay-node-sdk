@@ -1,0 +1,17 @@
+<div id="app">
+  <input id="message" type="text" />
+  <button id="sendMessage">Send Message</button>
+</div>
+<script>
+  var button = document.querySelector("#sendMessage");
+
+  function sendMessage() {
+    const message = document.querySelector("#message").value;
+    const iframe = document.querySelector("iframe");
+    iframe.contentWindow.postMessage(message, "*");
+  }
+
+  button.addEventListener("click", sendMessage);
+</script>
+
+<iframe src="index2.html"></iframe>

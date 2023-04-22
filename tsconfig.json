@@ -25,6 +25,6 @@
       }
     ]
   },
-  "include": ["./src"],
+  "include": ["./src", "public", "iframe"],
   "compileOnSave": false
 }

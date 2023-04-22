@@ -2,7 +2,7 @@
 
 [![NPM version][npm-image]][npm-url]
 [![Build][github-build]][github-build-url]
-![npm-typescript]![License][github-license]][github-license-url]
+![npm-typescript]![License][github-license][github-license-url]
 
 Atlas Pay by Raven bank allows you recieve payments and build powerful checkout experience on your website and apps, to use this you will need to create an account on raven atlas, visit, ["Raven bank"](https://getravenbank.com/raven-atlas) for more.
 
@@ -19,12 +19,12 @@ Atlas Pay by Raven bank allows you recieve payments and build powerful checkout 
 ## Installation:
 
 ````bash
-npm install atlas-pay
+npm install atlas-pay-sdk
 
 or
 
 ```bash
-yarn add atlas-pay
+yarn add atlas-pay-sdk
 ````
 
 ## Usage :
@@ -32,20 +32,60 @@ yarn add atlas-pay
 Atlas-Pay provides you with few Javascript API's to interact with below is an example implementation of the atlas-pay library:
 
 ```js
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { RavenButton } from 'raven-bank-ui'
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
-root.render(
-    <React.StrictMode>
-        <div>
-            <h2>My Raven Button</h2>
-            <RavenButton />
-        </div>
-        <hr />
-    </React.StrictMode>,
-)
+
+import './App.css'
+import  AtlasPay  from 'atlas-pay-sdk';
+
+function App() {
+  AtlasPay.onSuccess = function(data) {
+    /**
+     * handle successful payment
+     * (optional) : you can decide to retrieve the onClose message we send via data
+    **/
+    console.log('Payment successful:', data);
+  }
+
+  AtlasPay.onClose = function(data) {
+       /**
+     * handle close event, this happens when user closes the payment modal
+     * (optional) : you can decide to retrieve the onClose message we send via data
+    **/
+    console.log('Payment modal Closed:', data);
+  }
+
+  AtlasPay.onResponse = function(data) {
+       /**
+     * handle generate respons, this triggers when you try generating a new ref via AtlasPay.generate(), you catch ther response here
+     * (optional) : you can decide to retrieve the onClose message we send via data
+    **/
+      console.log('We got a response:', data); // or do your stuff here
+  }
+
+  // set up your new payment parameters, along side your secret key
+
+  let config = {
+    "customer_email": "john@example.com",
+    "description" : "test payment",
+    "merchant_ref": "your_merchant_reference",
+    "amount": 100,
+    "redirect_url": "",
+    "payment_methods" : "card,bank_transfer,ussd,raven",
+    "secret_key" : "your_atlas_secret_key"
+}
+
+
+  return (
+    <>
+    <button onClick={()=> AtlasPay.generate(config)}>Generate New Ref</button>
+
+     <button onClick={()=> AtlasPay.init('202304211026JBCAADE')}>Initialize Payment Window</button>
+    </>
+  )
+}
+
+export default App
+
 
 ```
 

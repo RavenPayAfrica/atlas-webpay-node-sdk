@@ -8,5 +8,6 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "files.associations": {
     "tslint*.json": "jsonc"
-  }
+  },
+  "liveServer.settings.port": 5501
 }
