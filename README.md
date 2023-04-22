@@ -51,9 +51,16 @@ function App() {
        /**
      * handle close event, this happens when user closes the payment modal
      * (optional) : you can decide to retrieve the onClose message we send via data
+     * (optional) : if you want to force close the payment window on onClose you can call the shutdown API within the onClose API
     **/
+
     console.log('Payment modal Closed:', data);
+
+    // optional shutdown
+    AtlasPay.shutdown()
   }
+
+  AtlasPay.shutdown() /* This closes the payment window and removes it from your DOM */
 
   AtlasPay.onResponse = function(data) {
        /**

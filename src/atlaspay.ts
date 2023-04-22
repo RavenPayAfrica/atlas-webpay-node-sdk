@@ -15,6 +15,12 @@ interface ConfigProp {
 
 }
 
+
+interface IframeProps extends HTMLIFrameElement {
+  style: any;
+  allowTransparency?: boolean;
+}
+
 interface RequestProp {
   method: Method,
   maxBodyLength: number,
@@ -26,6 +32,9 @@ interface RequestProp {
   data: any
 }
 
+const iframe: IframeProps = document.createElement('iframe');
+
+
 interface AtlasPayInterface {
   onSuccess: (data: any) => void,
   onClose: (data: any) => void,
@@ -33,6 +42,7 @@ interface AtlasPayInterface {
   onLoad: (data: any) => void,
   init: (trxRef: PayProp) => void,
   generate: (data : ConfigProp) => void
+  shutdown: (data: any) => void
 }
 
 const AtlasPay: AtlasPayInterface = {
@@ -47,6 +57,10 @@ const AtlasPay: AtlasPayInterface = {
   },
   onResponse: (data) => {
     return(data);
+  },
+  shutdown: () => {
+    const parentElement = iframe.parentNode;
+    parentElement?.removeChild(iframe);
   },
   generate: ({
     secret_key,
@@ -90,13 +104,9 @@ const AtlasPay: AtlasPayInterface = {
         AtlasPay.onResponse(error.response);
       });
   },
+
   init: (trxRef) => {
 
-    interface IframeProps extends HTMLIFrameElement {
-      style: any;
-      allowTransparency?: boolean;
-    }
-    const iframe: IframeProps = document.createElement('iframe');
     iframe.style =
       'border: 0; width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; z-index:3000; overflow: hidden';
     iframe.allowTransparency = true;
