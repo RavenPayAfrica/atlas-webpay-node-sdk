@@ -1,6 +1,6 @@
 {
-  "name": "atlas-webpay",
-  "version": "0.0.1",
+  "name": "atlas-pay-sdk",
+  "version": "0.0.2",
   "description": "Raven Atlas NodeJS Payment SDK",
   "keywords": [
     "raven",
