@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/RavenPayAfrica/atlas-webpay-node-sdk/compare/v1.0.2...v1.1.0) (2023-04-22)
+
+
+### Features
+
+* **atlaspay.ts:** Introduced shutdown API to close payment window ([55dfcc7](https://github.com/RavenPayAfrica/atlas-webpay-node-sdk/commit/55dfcc7))
+
+
+
 <a name="1.0.2"></a>
 ## [1.0.2](https://github.com/RavenPayAfrica/atlas-webpay-node-sdk/compare/v1.0.1...v1.0.2) (2023-04-22)
 
