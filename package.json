@@ -15,9 +15,9 @@
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/Silvrash/flutterwave-node-sdk"
+    "url": "https://github.com/RavenPayAfrica/atlas-webpay-node-sdk.git"
   },
-  "author": "Ezeani Emmanuel <monaoffice20@gmail.com>",
+  "author": "Ezeani Emmanuel <ezeani.emmanuel@getravenbank.com>",
   "license": "MIT",
   "engines": {
     "node": ">=8.5",
