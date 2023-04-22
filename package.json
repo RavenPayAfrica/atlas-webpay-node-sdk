@@ -17,7 +17,7 @@
     "type": "git",
     "url": "https://github.com/RavenPayAfrica/atlas-webpay-node-sdk.git"
   },
-  "author": "Ezeani Emmanuel <ezeani.emmanuel@getravenbank.com>",
+  "author": "Ezeani Emmanuel <emmanuel.ezeani@getravenbank.com>",
   "license": "MIT",
   "engines": {
     "node": ">=8.5",

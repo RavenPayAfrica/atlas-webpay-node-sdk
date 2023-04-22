@@ -2,7 +2,7 @@
 
 [![NPM version][npm-image]][npm-url]
 [![Build][github-build]][github-build-url]
-![npm-typescript]![License][github-license][github-license-url]
+![npm-typescript]![License][github-license]][github-license-url]
 
 Atlas Pay by Raven bank allows you recieve payments and build powerful checkout experience on your website and apps, to use this you will need to create an account on raven atlas, visit, ["Raven bank"](https://getravenbank.com/raven-atlas) for more.
 
@@ -34,8 +34,9 @@ Atlas-Pay provides you with few Javascript API's to interact with below is an ex
 ```js
 
 
+
 import './App.css'
-import  AtlasPay  from 'atlas-pay-sdk';
+import  {AtlasPay}  from 'atlas-pay-sdk';
 
 function App() {
   AtlasPay.onSuccess = function(data) {
@@ -56,11 +57,20 @@ function App() {
 
   AtlasPay.onResponse = function(data) {
        /**
-     * handle generate respons, this triggers when you try generating a new ref via AtlasPay.generate(), you catch ther response here
-     * (optional) : you can decide to retrieve the onClose message we send via data
+     * handle generate response, this triggers when you try generating a new ref via AtlasPay.generate(), you catch ther response here
+     * (required) : you are to retrieve the response via the data returned
     **/
       console.log('We got a response:', data); // or do your stuff here
   }
+
+
+  AtlasPay.onLoad = function(data) {
+    /**
+  * this triggers when the payment window is loaded onto your dom, it returns for you a payload containing the payment object.
+  * (optional) : you can decide to retrieve the payment object we send via data
+ **/
+   console.log('Payment window loaded:', data); // or do your stuff here
+}
 
   // set up your new payment parameters, along side your secret key
 
