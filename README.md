@@ -2,7 +2,7 @@
 
 [![NPM version][npm-image]][npm-url]
 [![Build][github-build]][github-build-url]
-![npm-typescript]![License][github-license]][github-license-url]
+![npm-typescript]![License][github-license][[github-license-url]]
 
 Atlas Pay by Raven bank allows you recieve payments and build powerful checkout experience on your website and apps, to use this you will need to create an account on raven atlas, visit, ["Raven bank"](https://getravenbank.com/raven-atlas) for more.
 
@@ -42,7 +42,7 @@ function App() {
   AtlasPay.onSuccess = function(data) {
     /**
      * handle successful payment
-     * (optional) : you can decide to retrieve the onClose message we send via data
+     * (optional) : you can decide to retrieve the onSuccess message we send via data
     **/
     console.log('Payment successful:', data);
   }
@@ -87,8 +87,10 @@ function App() {
 
   return (
     <>
+    {/* This button will fire the generate function */}
     <button onClick={()=> AtlasPay.generate(config)}>Generate New Ref</button>
 
+    {/* This button will fire the init function and load up the payment window */}
      <button onClick={()=> AtlasPay.init('202304211026JBCAADE')}>Initialize Payment Window</button>
     </>
   )
@@ -107,4 +109,3 @@ export default App
 [github-build-url]: https://github.com/gapon2401/my-react-typescript-package/actions/workflows/publish.yml
 
 [npm-typescript]: https://img.shields.io/npm/types/my-react-typescript-package
-"postbuild": "node scripts/copy && npm run size",
