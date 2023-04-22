@@ -50,7 +50,7 @@
     "ordered-imports": true,
     "prefer-template": true,
     "newline-before-return": true,
-    "match-default-export-name": true,
+    "match-default-export-name": false,
     "no-parameter-reassignment": true,
     "switch-default": true,
     // tslint:recommended overrides

@@ -1,6 +1,6 @@
-import axios, { Method } from 'axios';
+import axios, {Method} from 'axios';
 interface PayProp {
-  trx_ref?: string
+  trxRef?: string
 }
 
 interface ConfigProp {
@@ -31,17 +31,23 @@ interface AtlasPayInterface {
   onClose: (data: any) => void,
   onResponse: (data: any) => void,
   onLoad: (data: any) => void,
-  init: (trx_ref: PayProp) => void,
+  init: (trxRef: PayProp) => void,
   generate: (data : ConfigProp) => void
 }
 
 const AtlasPay: AtlasPayInterface = {
   onSuccess: (data) => {
+    return(data);
   },
   onClose: (data) => {
+    return(data);
   },
-  onLoad: (data) => {},
-  onResponse: (data) => {},
+  onLoad: (data) => {
+    return(data);
+  },
+  onResponse: (data) => {
+    return(data);
+  },
   generate: ({
     secret_key,
     customer_email,
@@ -65,7 +71,7 @@ const AtlasPay: AtlasPayInterface = {
   redirect_url,
   payment_methods ,
     }
-    let api_config: RequestProp = {
+    const requestConfig: RequestProp = {
       method: 'post',
       maxBodyLength: Infinity,
       url: 'https://integrations.getravenbank.com/v1/webpay/create_payment',
@@ -76,7 +82,7 @@ const AtlasPay: AtlasPayInterface = {
       data: payload
     };
 
-    axios.request(api_config)
+    axios.request(requestConfig)
       .then((response) => {
         AtlasPay.onResponse(response.data);
       })
@@ -84,7 +90,7 @@ const AtlasPay: AtlasPayInterface = {
         AtlasPay.onResponse(error.response);
       });
   },
-  init: (trx_ref) => {
+  init: (trxRef) => {
 
     interface IframeProps extends HTMLIFrameElement {
       style: any;
@@ -97,7 +103,7 @@ const AtlasPay: AtlasPayInterface = {
     iframe.allow = 'clipboard-write';
 
     // handle communication from webpay window
-    window.addEventListener('message', function (event) {
+    window.addEventListener('message',  (event) => {
       if (event.data.type) {
         const { type } = event.data;
 
@@ -111,8 +117,8 @@ const AtlasPay: AtlasPayInterface = {
       }
     });
 
-    if (trx_ref) {
-      iframe.src = `https://elaborate-blancmange-d0d15d.netlify.app/?ref=${trx_ref}&platform=wordpress`;
+    if (trxRef) {
+      iframe.src = `https://elaborate-blancmange-d0d15d.netlify.app/?ref=${trxRef}&platform=wordpress`;
       document.body.appendChild(iframe);
     }
 
