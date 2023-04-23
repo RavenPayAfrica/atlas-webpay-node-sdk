@@ -59,8 +59,8 @@ const AtlasPay: AtlasPayInterface = {
     return(data);
   },
   shutdown: () => {
-    const parentElement = iframe.parentNode;
-    parentElement?.removeChild(iframe);
+    const parentElement: any = iframe.parentNode;
+    parentElement.removeChild(iframe);
   },
   generate: ({
     secret_key,

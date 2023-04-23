@@ -42,7 +42,7 @@ function App() {
   AtlasPay.onSuccess = function(data) {
     /**
      * handle successful payment
-     * (optional) : you can decide to retrieve the onSuccess message we send via data
+     * (optional) : you can decide to retrieve the onSuccess message we send via data, the message contains the payload of the successful payment.
     **/
     console.log('Payment successful:', data);
   }
@@ -51,7 +51,8 @@ function App() {
        /**
      * handle close event, this happens when user closes the payment modal
      * (optional) : you can decide to retrieve the onClose message we send via data
-     * (optional) : if you want to force close the payment window on onClose you can call the shutdown API within the onClose API
+     * (optional) : if you want to force close the payment window on onClose you can call the shutdown API within the onClose
+     * (note) : this also triggers when the close modal button is clicked after successful paymen, but the message returned is 'payment_successful' , you can hook into this and do your magic.
     **/
 
     console.log('Payment modal Closed:', data);
