@@ -1,6 +1,7 @@
 
 import './App.css'
-import  {AtlasPay}  from 'atlas-pay-sdk';
+// import  {AtlasPay}  from 'atlas-pay-sdk';
+import AtlasPay from '../../src/atlaspay';
 
 function App() {
   AtlasPay.onSuccess = function(data) {

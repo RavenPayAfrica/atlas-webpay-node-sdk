@@ -114,14 +114,19 @@ const AtlasPay: AtlasPayInterface = {
 
     // handle communication from webpay window
     window.addEventListener('message',  (event) => {
+
       if (event.data.type) {
         const { type } = event.data;
 
-        if (type === 'onSuccess') {
+        if (type === 'onSuccess' && event.data.message.status === 'paid') {
           AtlasPay.onSuccess(event.data);
         }
 
         if (type === 'onclose') {
+          AtlasPay.onClose(event.data);
+        }
+
+        if (type === 'onLoad') {
           AtlasPay.onClose(event.data);
         }
       }
