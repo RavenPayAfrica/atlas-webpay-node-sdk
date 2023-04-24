@@ -33,6 +33,7 @@ interface RequestProp {
 }
 
 const iframe: IframeProps = document.createElement('iframe');
+let isLoaded = false;
 
 
 interface AtlasPayInterface {
@@ -111,6 +112,9 @@ const AtlasPay: AtlasPayInterface = {
       'border: 0; width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; z-index:3000; overflow: hidden';
     iframe.allowTransparency = true;
     iframe.allow = 'clipboard-write';
+    iframe.onload = () => {
+      isLoaded = true;
+    }
 
     // handle communication from webpay window
     window.addEventListener('message',  (event) => {
@@ -126,8 +130,8 @@ const AtlasPay: AtlasPayInterface = {
           AtlasPay.onClose(event.data);
         }
 
-        if (type === 'onLoad') {
-          AtlasPay.onClose(event.data);
+        if (type === 'onLoad' && isLoaded) {
+          AtlasPay.onLoad(event.data);
         }
       }
     });
