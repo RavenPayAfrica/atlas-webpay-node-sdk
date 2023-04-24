@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.3"></a>
+## [1.1.3](https://github.com/RavenPayAfrica/atlas-webpay-node-sdk/compare/v1.1.2...v1.1.3) (2023-04-24)
+
+
+### Bug Fixes
+
+* **atlaspay.js:** Fixes to onSuccess triggering onLoad and onLoad trigering multiple times ([18925e4](https://github.com/RavenPayAfrica/atlas-webpay-node-sdk/commit/18925e4))
+
+
+
 <a name="1.1.2"></a>
 ## [1.1.2](https://github.com/RavenPayAfrica/atlas-webpay-node-sdk/compare/v1.1.1...v1.1.2) (2023-04-24)
 
