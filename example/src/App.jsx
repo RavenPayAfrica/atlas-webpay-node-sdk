@@ -54,7 +54,7 @@ function App() {
     <>
     <button onClick={()=> AtlasPay.generate(config)}>Generate New Ref</button>
 
-     <button onClick={()=> AtlasPay.init('202304211026JBCAADE')}>Initialize Payment Window</button>
+     <button onClick={()=> AtlasPay.init('202304241625FGIJDIF')}>Initialize Payment Window</button>
     </>
   )
 }
