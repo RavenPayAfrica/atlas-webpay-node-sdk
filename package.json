@@ -1,6 +1,6 @@
 {
   "name": "atlas-pay-sdk",
-  "version": "1.1.5",
+  "version": "2.0.0",
   "description": "Raven Atlas NodeJS Payment SDK",
   "keywords": [
     "raven",
@@ -41,6 +41,7 @@
     "type": "git",
     "url": "https://github.com/RavenPayAfrica/atlas-webpay-node-sdk.git"
   },
+  "homepage": "https://ravenpayafrica.github.io/atlas-webpay-node-sdk/",
   "author": "Ezeani Emmanuel <emmanuel.ezeani@getravenbank.com>",
   "license": "MIT",
   "engines": {
@@ -75,7 +76,7 @@
     "release:github": "git push --no-verify --follow-tags origin master",
     "release:npm": "npm publish dist",
     "release:preflight": "npm pack ./dist --dry-run",
-    "size": "node scripts/file-size ./dist/bundles/index.umd.min.js ./dist/bundles/index.esm.min.js"
+    "size": "node --experimental-modules scripts/file-size ./dist/index.min.js ./dist/bundles/index.esm.js"
   },
   "config": {
     "commitizen": {

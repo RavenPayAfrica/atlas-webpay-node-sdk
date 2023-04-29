@@ -1,6 +1,17 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [2.0.0](https://github.com/RavenPayAfrica/atlas-webpay-node-sdk/compare/v1.1.5...v2.0.0) (2023-04-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* **rollup.config.js, package.json:** "refactor!: change default export of AtlasPay SDK, breaking change for imports".
+
+### Features
+
+* **rollup.config.js, package.json:** implement support for all javascript environment ([0f2b9eb](https://github.com/RavenPayAfrica/atlas-webpay-node-sdk/commit/0f2b9ebcfb28cb421e89023eb7fb6c02b49ac825))
 
 <a name="1.1.5"></a>
 ## [1.1.5](https://github.com/RavenPayAfrica/atlas-webpay-node-sdk/compare/v1.1.4...v1.1.5) (2023-04-27)
