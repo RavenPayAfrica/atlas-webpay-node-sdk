@@ -1,0 +1,6 @@
+1. we uninstalled tslint-etc, so find an alternative for tslint-etc if it throws ignoreCompilerErrors
+2. uninstalled rollup-plugin-terser remember to replace with @rollup/plugin-terser
+3. uninstalled rollup-plugin-replace , remember to replace with @rollup/plugin-replace
+4. uninstalled rollup-plugin-node-resolve, remember to replace with @rollup/plugin-node-resolve
+5. uninstalled rollup-plugin-json, remember to replace with @rollup/plugin-json
+6. uninstalled rollup-plugin-commonjs, remember to replace with @rollup/plugin-commonjs

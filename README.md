@@ -10,6 +10,11 @@ Atlas Pay by Raven bank allows you recieve payments and build powerful checkout 
 
 ## ✨ Features
 
+### New
+- Compatibility in all JavaScript environments, including RequireJS and script tags.
+
+### Existing
+
 - Card Payments. (Visa, MasterCard)
 - USSD Payment.
 - Bank Transfers.
@@ -36,7 +41,7 @@ Atlas-Pay provides you with few Javascript API's to interact with below is an ex
 
 
 import './App.css'
-import  {AtlasPay}  from 'atlas-pay-sdk';
+import  AtlasPay  from 'atlas-pay-sdk';
 
 function App() {
   AtlasPay.onSuccess = function(data) {
@@ -108,6 +113,165 @@ export default App
 
 
 ```
+
+In the example above, we created two functions that you can call to initiate the payment window and generate new payment references.
+
+## Integration
+
+**Browsers**
+
+``` html
+<script src="https://cdn.jsdelivr.net/npm/atlas-pay-sdk@[version]/dist/index.min.js"></script>
+
+<!-- Remember to change the [version] with the actual version you need, it is adviceable to always use the recent versions -->
+
+```
+
+After adding the script tag you now have access to `AtlasPaySdk` Object on your browser, refer to the usage for implementation but replace `AtlasPay` with `AtlasPaySdk` i.e `AtlasPaySdk.init()`.
+
+
+**RequireJS**
+
+If you are using RequireJS, you can include Atlas-Pay-SDK like this:
+
+
+``` js
+require(['path/to/atlas-pay-sdk'], function (AtlasPay) {
+
+  // Use AtlasPay object here
+  // Refer to the Usage section for usage examples
+});
+
+```
+
+
+**NodeJS**
+
+In a Node.js environment, you can install Atlas-Pay-SDK with npm:
+
+
+``` bash
+npm install atlas-pay-sdk
+
+```
+
+Then you can use it in your Node.js code like this:
+
+```js
+
+const AtlasPay = require('atlas-pay-sdk');
+
+// Use AtlasPay object here
+// Refer to the Usage section for usage examples
+
+```
+
+
+## API
+
+**`AtlasPay.generate(config: PaymentConfig): void`**
+
+This function is used to generate a new payment reference. The config parameter is an object that contains the following properties:
+
+- customer_email: the email of the customer making the payment
+- description: a brief description of the payment
+- merchant_ref: your unique merchant reference for this payment
+- amount: the amount to be paid
+redirect_url: the URL to redirect the customer to after payment or when customer decides to cancel the payment
+- payment_methods: a comma separated list of payment methods to enable (card, bank_transfer, ussd, raven)
+- secret_key: your secret key
+
+Example:
+
+```js
+let config = {
+  "customer_email": "john@example.com",
+  "description": "test payment",
+  "merchant_ref": "your_merchant_reference",
+  "amount": 100,
+  "redirect_url": "",
+  "payment_methods": "card,bank_transfer,ussd,raven",
+  "secret_key": "your_atlas_secret_key"
+};
+
+AtlasPay.generate(config);
+
+```
+
+**`AtlasPay.init(ref: string): void`**
+
+This function is used to initialize the payment window with the specified `payment_reference`. The `payment_reference` parameter is the reference generated using the `AtlasPay.generate()` function.
+
+Example:
+
+```js
+AtlasPay.init('202304211026JBCAADE');
+
+```
+
+**`AtlasPay.shutdown(): void`**
+
+This method is used to close the payment window and remove it from the DOM.
+
+Example:
+
+```js
+AtlasPay.shutdown();
+
+```
+
+**`AtlasPay.onLoad(data: any): void`**
+
+This callback is triggered when the payment window is loaded onto the DOM. The `data` parameter is an object containing the payment object.
+
+Example:
+
+```js
+AtlasPay.onLoad(function(data) {
+  console.log('Payment window loaded:', data);
+});
+
+```
+
+**`AtlasPay.onSuccess(data: any): void`**
+
+This callback is triggered when a payment is successful. The `data` parameter is an object containing the payload of the successful payment.
+
+Example:
+
+```js
+AtlasPay.onSuccess(function(data) {
+  console.log('Payment successful:', data);
+});
+
+```
+
+**`AtlasPay.onClose(data: any): void`**
+
+This callback is triggered when the payment window is closed. The `data` parameter is an object containing the message returned when the payment window is closed.
+
+Example:
+
+```js
+AtlasPay.onClose(function(data) {
+  console.log('Payment modal Closed:', data);
+});
+
+```
+
+**`AtlasPay.onResponse(data: any): void`**
+
+This callback is triggered when a new payment reference is generated using the `AtlasPay.generate()` function. The data parameter is an object containing the response returned from the server.
+
+Example:
+
+```js
+AtlasPay.onResponse(function(data) {
+  console.log('We got a response:', data);
+});
+
+```
+
 
 [npm-url]: https://www.npmjs.com/package/raven-bank-ui
 [npm-image]: https://img.shields.io/npm/v/my-react-typescript-package

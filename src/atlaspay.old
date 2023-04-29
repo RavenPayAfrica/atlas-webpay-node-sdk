@@ -1,0 +1,154 @@
+import axios, { Method } from 'axios';
+
+interface PayProp {
+  trxRef?: string;
+}
+
+interface ConfigProp {
+  secret_key: string;
+  customer_email: string;
+  description: string;
+  merchant_ref: string;
+  amount: number;
+  redirect_url?: string;
+  payment_methods?: ["card", "bank_transfer", "ussd", "raven"];
+}
+
+interface IframeProps extends HTMLIFrameElement {
+  style: any;
+  allowTransparency?: boolean;
+}
+
+interface RequestProp {
+  method: Method;
+  maxBodyLength: number;
+  url: string;
+  headers: {
+    Authorization: string;
+    "Content-Type": string;
+  };
+  data: any;
+}
+
+interface AtlasPayInterface {
+  onSuccess: (data: any) => void;
+  onClose: (data: any) => void;
+  onResponse: (data: any) => void;
+  onLoad: (data: any) => void;
+  init: (trxRef?: PayProp) => void;
+  generate: (data: ConfigProp) => void;
+  shutdown: () => void;
+}
+
+class AtlasPay implements AtlasPayInterface {
+  private iframe: IframeProps;
+  private isLoaded: boolean;
+
+  constructor() {
+    this.iframe = document.createElement('iframe') as IframeProps;
+    this.isLoaded = false;
+  }
+
+  onSuccess(data: any): void {
+    return data;
+  }
+
+  onClose(data: any): void {
+    return data;
+  }
+
+  onLoad(data: any): void {
+    return data;
+  }
+
+  onResponse(data: any): void {
+    return data;
+  }
+
+  shutdown(): void {
+    const parentElement: any = this.iframe.parentNode;
+    parentElement.removeChild(this.iframe);
+  }
+
+  generate({
+    secret_key,
+    customer_email,
+    description,
+    merchant_ref,
+    amount,
+    redirect_url,
+    payment_methods,
+  }: ConfigProp): void {
+    if (!secret_key) throw new Error('secret_key is required');
+    if (!customer_email) throw new Error('customer_email is required');
+    if (!merchant_ref) throw new Error('merchant_email is required');
+    if (!amount) throw new Error('amount is required');
+
+    const payload = {
+      customer_email,
+      description,
+      merchant_ref,
+      amount,
+      redirect_url,
+      payment_methods,
+    };
+
+    const requestConfig: RequestProp = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://integrations.getravenbank.com/v1/webpay/create_payment',
+      headers: {
+        Authorization: `Bearer ${secret_key}`,
+        'Content-Type': 'application/json',
+      },
+      data: payload,
+    };
+
+    axios
+      .request(requestConfig)
+      .then((response) => {
+        this.onResponse(response.data);
+      })
+      .catch((error) => {
+        this.onResponse(error.response);
+      });
+  }
+
+  init(trxRef?: PayProp): void {
+    this.iframe.style =
+      'border: 0; width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; z-index:3000; overflow: hidden';
+    this.iframe.allowTransparency = true;
+    this.iframe.allow = 'clipboard-write';
+    this.iframe.onload = () => {
+      this.isLoaded = true;
+    };
+
+      // handle communication from webpay window
+      window.addEventListener('message', (event) => {
+        if (event.data.type) {
+          const { type } = event.data;
+  
+          if (type === 'onSuccess' && event.data.message.status === 'paid') {
+            this.onSuccess(event.data);
+          }
+  
+          if (type === 'onclose') {
+            this.onClose(event.data);
+          }
+  
+          if (type === 'onLoad' && this.isLoaded) {
+            this.onLoad(event.data);
+          }
+        }
+      });
+  
+      if (trxRef) {
+        this.iframe.src = `https://elaborate-blancmange-d0d15d.netlify.app/?ref=${trxRef}&platform=wordpress`;
+        document.body.appendChild(this.iframe);
+      }
+    }
+  
+  }
+  
+  export default AtlasPay;
+  

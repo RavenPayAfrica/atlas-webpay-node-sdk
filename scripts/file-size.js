@@ -4,15 +4,17 @@ const { promisify } = require('util')
 const readFile = promisify(readFileCb)
 
 const kolor = require('kleur')
-const prettyBytes = require('pretty-bytes')
 const brotliSize = require('brotli-size')
 const gzipSize = require('gzip-size')
 const { log } = console
 const pkg = require('../package.json')
-
+let prettyBytes;
+// let gzipSize;
 main()
 
 async function main() {
+  prettyBytes = await import('pretty-bytes');
+  // gzipSize = await import('gzip-size');
   const args = process.argv.splice(2)
   const filePaths = [...args.map(normalize)]
   const fileMetadata = await Promise.all(
