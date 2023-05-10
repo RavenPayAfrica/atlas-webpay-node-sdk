@@ -2,7 +2,8 @@
 
 [![NPM version][npm-image]][npm-url]
 [![Build][github-build]][github-build-url]
-![npm-typescript]![License][github-license][[github-license-url]]
+[![npm-typescript]][npm-typescript]
+[![github-license]][github-license]
 
 Atlas Pay by Raven bank allows you recieve payments and build powerful checkout experience on your website and apps, to use this you will need to create an account on raven atlas, visit, ["Raven bank"](https://getravenbank.com/raven-atlas) for more.
 
@@ -271,6 +272,11 @@ AtlasPay.onResponse(function(data) {
 });
 
 ```
+
+## License
+
+AtlasPay by Raven bank is licensed under the [**MIT**](http://opensource.org/licenses/MIT)
+
 
 
 [npm-url]: https://www.npmjs.com/package/raven-bank-ui

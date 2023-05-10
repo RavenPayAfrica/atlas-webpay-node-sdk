@@ -1,9 +1,9 @@
 
 import './App.css'
 // import  {AtlasPay}  from 'atlas-pay-sdk';
-import AtlasPay from '../../dist/bundles/index.esm.js'
+import AtlasPay from '../../src/atlaspay'
 
-function App () {
+function App() {
   AtlasPay.onSuccess = function (data) {
     /**
      * handle successful payment
@@ -49,11 +49,11 @@ function App () {
   }
 
   return (
-    <>
-    <button onClick={() => AtlasPay.generate(config)}>Generate New Ref</button>
+    <React.Fragment>
+      <button onClick={() => AtlasPay.generate(config)}>Generate New Ref</button>
 
-     <button onClick={() => AtlasPay.init('202304241625FGIJDIF')}>Initialize Payment Window</button>
-    </>
+      <button onClick={() => AtlasPay.init('202305021324ECIDEGI')}>Initialize Payment Window</button>
+    </React.Fragment>
   )
 }
 
