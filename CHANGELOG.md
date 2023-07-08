@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.3](https://github.com/RavenPayAfrica/atlas-webpay-node-sdk/compare/v2.0.2...v2.0.3) (2023-07-08)
+
 ### [2.0.1](https://github.com/RavenPayAfrica/atlas-webpay-node-sdk/compare/v2.0.0...v2.0.1) (2023-05-10)
 
 ## [2.0.0](https://github.com/RavenPayAfrica/atlas-webpay-node-sdk/compare/v1.1.5...v2.0.0) (2023-04-29)

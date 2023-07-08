@@ -1,6 +1,6 @@
 {
   "name": "atlas-pay-sdk",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Raven Atlas NodeJS Payment SDK",
   "keywords": [
     "raven",
@@ -74,7 +74,7 @@
     "release": "standard-version",
     "postrelease": "node scripts/copy && node scripts/build && yarn release:github && yarn release:npm",
     "release:github": "git push --no-verify --follow-tags origin master",
-    "release:npm": "npm publish dist",
+    "release:npm": "npm publish ./dist",
     "release:preflight": "npm pack ./dist --dry-run",
     "size": "node --experimental-modules scripts/file-size ./dist/index.min.js ./dist/bundles/index.esm.js"
   },
@@ -107,6 +107,7 @@
     "@rollup/plugin-node-resolve": "15.0.2",
     "@types/express-serve-static-core": "4.17.34",
     "@types/mime": "3.0.1",
+    "atlas-pay-sdk": "2.0.2",
     "axios": "1.3.6",
     "md5": "2.3.0",
     "node-forge": "1.3.1",
