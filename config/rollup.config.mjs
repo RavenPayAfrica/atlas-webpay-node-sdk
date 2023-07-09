@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 import { resolve } from 'path'
 import sourceMaps from 'rollup-plugin-sourcemaps'
 import pluginNodeResolve, { nodeResolve } from '@rollup/plugin-node-resolve'
@@ -13,7 +14,7 @@ import pkg from '../package.json'
 const {
   pascalCase,
   normalizePackageName,
-  getOutputFileName
+  getOutputFileName,
 } = require('./helpers')
 
 /**
@@ -47,7 +48,7 @@ const banner = `
  */
 const PATHS = {
   entry: resolve(ROOT, '/src/index.js'),
-  bundles: resolve(DIST)
+  bundles: resolve(DIST),
 }
 
 /**
@@ -71,13 +72,15 @@ const plugins = /** @type {Plugin[]} */ ([
   nodeResolve(),
 
   // Resolve source maps to the original source
-  sourceMaps(),
+  sourceMaps({
+    typescript: true,
+  }),
 
   // properly set process.env.NODE_ENV within `./environment.ts`
   replace({
     exclude: 'node_modules/**',
-    'process.env.NODE_ENV': JSON.stringify(env)
-  })
+    'process.env.NODE_ENV': JSON.stringify(env),
+  }),
 ])
 
 /**
@@ -88,10 +91,10 @@ const CommonConfig = {
   output: {},
   // inlineDynamicImports: true,
   // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
-  external
+  external,
 }
 
-console.log(resolve(PATHS.bundles, 'index.js'))
+// console.log(resolve(PATHS.bundles, 'index.js'))
 
 /**
  * @type {Config}
@@ -103,14 +106,12 @@ export default [
     input: inputFileName,
     output: [
       {
-        file: getOutputFileName(
-          resolve(PATHS.bundles, 'index.js')
-        ),
+        file: getOutputFileName(resolve(PATHS.bundles, 'index.js')),
         format: 'iife',
         name: LIB_NAME,
         esModule: false,
         sourcemap: true,
-        banner
+        banner,
       },
       {
         name: LIB_NAME,
@@ -123,22 +124,24 @@ export default [
         banner,
         plugins: removeEmpty(
           /** @type {Plugin[]} */ ([...plugins, ifProduction(terser())])
-        )
-      }
+        ),
+      },
     ],
     plugins: [
-      pluginTypescript(),
+      pluginTypescript({
+        sourceMap: false,
+      }),
       pluginCommonjs({
-        extensions: ['.js', '.ts']
+        extensions: ['.js', '.ts'],
       }),
       babel({
         babelHelpers: 'bundled',
-        configFile: resolve(__dirname, '../.babelrc.js')
+        configFile: resolve(__dirname, '../.babelrc.js'),
       }),
       nodeResolve({
-        browser: true
-      })
-    ]
+        browser: true,
+      }),
+    ],
   },
 
   // ESM
@@ -146,32 +149,32 @@ export default [
     input: inputFileName,
     output: [
       {
-        file: getOutputFileName(
-          resolve(PATHS.bundles, pkg.module)
-        ),
+        file: getOutputFileName(resolve(PATHS.bundles, pkg.module)),
         format: 'es',
         sourcemap: true,
         banner,
-        exports: 'named'
-      }
+        exports: 'named',
+      },
     ],
     external: [
       ...Object.keys(pkg.dependencies || {}),
-      ...Object.keys(pkg.devDependencies || {})
+      ...Object.keys(pkg.devDependencies || {}),
     ],
     plugins: [
-      pluginTypescript(),
+      pluginTypescript({
+        sourceMap: false,
+      }),
       pluginCommonjs({
-        extensions: ['.js', '.ts']
+        extensions: ['.js', '.ts'],
       }),
       babel({
         babelHelpers: 'bundled',
-        configFile: resolve(__dirname, '../.babelrc.js')
+        configFile: resolve(__dirname, '../.babelrc.js'),
       }),
       pluginNodeResolve({
-        browser: false
-      })
-    ]
+        browser: false,
+      }),
+    ],
   },
 
   // CommonJS
@@ -179,32 +182,31 @@ export default [
     input: inputFileName,
     output: [
       {
-        file: getOutputFileName(
-          resolve(PATHS.bundles, pkg.main)
-        ),
+        file: getOutputFileName(resolve(PATHS.bundles, pkg.main)),
         format: 'cjs',
-        sourcemap: true,
+        sourcemap: false,
         banner,
-        exports: 'default'
-      }
+        exports: 'default',
+      },
     ],
     external: [
       ...Object.keys(pkg.dependencies || {}),
-      ...Object.keys(pkg.devDependencies || {})
+      ...Object.keys(pkg.devDependencies || {}),
     ],
     plugins: [
-      pluginTypescript(),
+      pluginTypescript({
+        sourceMap: false,
+      }),
       pluginCommonjs({
-        extensions: ['.js', '.ts']
+        extensions: ['.js', '.ts'],
       }),
       babel({
         babelHelpers: 'bundled',
-        configFile: resolve(__dirname, '../.babelrc.js')
+        configFile: resolve(__dirname, '../.babelrc.js'),
       }),
       pluginNodeResolve({
-        browser: false
-      })
-    ]
-  }
-
+        browser: false,
+      }),
+    ],
+  },
 ]

@@ -1,9 +1,12 @@
 
 import './App.css'
-// import  {AtlasPay}  from 'atlas-pay-sdk';
-import AtlasPay from '../../dist/bundles/index.esm.js'
+import React from 'react'
 
-function App () {
+// import  AtlasPay  from 'atlas-pay-sdk';
+import AtlasPay from '../../src/atlaspay'
+
+// const AtlasPay = window.AtlasPaySdk
+function App(): JSX.Element {
   AtlasPay.onSuccess = function (data) {
     /**
      * handle successful payment
@@ -38,7 +41,7 @@ function App () {
 
   // set up your new payment parameters, along side your secret key
 
-  const config = {
+  const config : any = {
     customer_email: 'john@example.com',
     description: 'test payment',
     merchant_ref: 'your_merchant_reference',
@@ -49,11 +52,11 @@ function App () {
   }
 
   return (
-    <>
-    <button onClick={() => AtlasPay.generate(config)}>Generate New Ref</button>
+    <React.Fragment>
+      <button onClick={() => AtlasPay.generate(config)}>Generate New Ref</button>
 
-     <button onClick={() => AtlasPay.init('202304241625FGIJDIF')}>Initialize Payment Window</button>
-    </>
+      <button onClick={() => AtlasPay.init('202305021324ECIDEGI')}>Initialize Payment Window</button>
+    </React.Fragment>
   )
 }
 

@@ -1,17 +1,14 @@
-import axios, {Method} from 'axios';
-interface PayProp {
-  trxRef?: string
-}
-
+import axios, { Method } from 'axios';
+type trxRef = string
 interface ConfigProp {
 
   secret_key: string,
   customer_email: string,
-  description : string,
+  description: string,
   merchant_ref: string,
   amount: number,
   redirect_url?: string,
-  payment_methods? : ["card","bank_transfer","ussd","raven"]
+  payment_methods?: string | undefined;
 
 }
 
@@ -41,23 +38,23 @@ interface AtlasPayInterface {
   onClose: (data: any) => void,
   onResponse: (data: any) => void,
   onLoad: (data: any) => void,
-  init: (trxRef: PayProp) => void,
-  generate: (data : ConfigProp) => void
+  init: (trxRef: trxRef) => void,
+  generate: (config: ConfigProp) => void
   shutdown: (data: any) => void
 }
 
 const AtlasPay: AtlasPayInterface = {
   onSuccess: (data) => {
-    return(data);
+    return (data);
   },
   onClose: (data) => {
-    return(data);
+    return (data);
   },
   onLoad: (data) => {
-    return(data);
+    return (data);
   },
   onResponse: (data) => {
-    return(data);
+    return (data);
   },
   shutdown: () => {
     const parentElement: any = iframe.parentNode;
@@ -66,25 +63,25 @@ const AtlasPay: AtlasPayInterface = {
   generate: ({
     secret_key,
     customer_email,
-    description ,
+    description,
     merchant_ref,
     amount,
     redirect_url,
     payment_methods
-  } : ConfigProp ) => {
+  }: ConfigProp) => {
 
-    if (!secret_key) throw new Error ("secret_key is required")
-    if (!customer_email) throw new Error ("customer_email is required")
-    if (!merchant_ref) throw new Error ("merchant_email is required")
-    if (!amount) throw new Error ("amount is required")
+    if (!secret_key) throw new Error("secret_key is required")
+    if (!customer_email) throw new Error("customer_email is required")
+    if (!merchant_ref) throw new Error("merchant_email is required")
+    if (!amount) throw new Error("amount is required")
 
     const payload = {
-  customer_email,
-  description ,
-  merchant_ref,
-  amount,
-  redirect_url,
-  payment_methods ,
+      customer_email,
+      description,
+      merchant_ref,
+      amount,
+      redirect_url,
+      payment_methods,
     }
     const requestConfig: RequestProp = {
       method: 'post',
@@ -117,7 +114,7 @@ const AtlasPay: AtlasPayInterface = {
     }
 
     // handle communication from webpay window
-    window.addEventListener('message',  (event) => {
+    window.addEventListener('message', (event) => {
 
       if (event.data.type) {
         const { type } = event.data;
@@ -126,7 +123,7 @@ const AtlasPay: AtlasPayInterface = {
           AtlasPay.onSuccess(event.data);
         }
 
-        if (type === 'onclose') {
+        if (type === 'onClose') {
           AtlasPay.onClose(event.data);
         }
 
