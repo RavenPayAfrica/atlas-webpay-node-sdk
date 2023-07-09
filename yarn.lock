@@ -2078,6 +2078,20 @@ at-least-node@^1.0.0:
   resolved "https://registry.yarnpkg.com/at-least-node/-/at-least-node-1.0.0.tgz#602cd4b46e844ad4effc92a8011a3c46e0238dc2"
   integrity sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
 
+atlas-pay-sdk@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/atlas-pay-sdk/-/atlas-pay-sdk-2.0.2.tgz#325d6698b853ba18b7e273e98abdbbb8b9fdecd7"
+  integrity sha512-jRznFDPmhX+aLbbkHbvqV1Ld0fDyDWpn1iF01cLLLlLosmarrZSUiw0n6F6jM4AobxHnX//60xnf1J3+5hHhmg==
+  dependencies:
+    "@rollup/plugin-node-resolve" "15.0.2"
+    "@types/express-serve-static-core" "4.17.34"
+    "@types/mime" "3.0.1"
+    axios "1.3.6"
+    md5 "2.3.0"
+    node-forge "1.3.1"
+    ramda "0.29.0"
+    text-encoding "0.7.0"
+
 atob@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"

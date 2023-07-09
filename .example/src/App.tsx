@@ -1,9 +1,12 @@
 
 import './App.css'
-// import  {AtlasPay}  from 'atlas-pay-sdk';
+import React from 'react'
+
+// import  AtlasPay  from 'atlas-pay-sdk';
 import AtlasPay from '../../src/atlaspay'
 
-function App() {
+// const AtlasPay = window.AtlasPaySdk
+function App(): JSX.Element {
   AtlasPay.onSuccess = function (data) {
     /**
      * handle successful payment
@@ -38,7 +41,7 @@ function App() {
 
   // set up your new payment parameters, along side your secret key
 
-  const config = {
+  const config : any = {
     customer_email: 'john@example.com',
     description: 'test payment',
     merchant_ref: 'your_merchant_reference',

@@ -123,7 +123,7 @@ const AtlasPay: AtlasPayInterface = {
           AtlasPay.onSuccess(event.data);
         }
 
-        if (type === 'onclose') {
+        if (type === 'onClose') {
           AtlasPay.onClose(event.data);
         }
 
