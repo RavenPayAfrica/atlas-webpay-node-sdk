@@ -95,7 +95,7 @@ function App() {
     "amount": 100,
     "redirect_url": "",
     "payment_methods" : "card,bank_transfer,ussd,raven",
-    "secret_key" : "your_atlas_secret_key"
+    "public_key" : "your_atlas_secret_key"
 }
 
 
