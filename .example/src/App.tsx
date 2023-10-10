@@ -48,9 +48,10 @@ function App(): JSX.Element {
     amount: 100,
     redirect_url: '',
     payment_methods: 'card,bank_transfer,ussd,raven',
-    secret_key: 'your_atlas_secret_key'
+    secret_key: 'RVSEC-ed8e7daf8c43a13f9cd81478925fbb80d2f1a67e4a630a10b87142527c4ded67b72b32f736e18e4be130efc055b1f528-1655335692169'
   }
 
+  // console.log(AtlasPay)
   return (
     <React.Fragment>
       <button onClick={() => AtlasPay.generate(config)}>Generate New Ref</button>
