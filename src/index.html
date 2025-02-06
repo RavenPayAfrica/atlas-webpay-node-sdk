@@ -1,0 +1,50 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdn.bankbox.com/widget.js"></script>
+    <script>
+import { Bankbox } from './bankbox';
+
+const config = {
+  appName: 'your-app-name',
+  environment: 'sandbox', // or 'production'
+  widgetOptions: {
+    // Add your widget options here
+  },
+  onMessage: (event) => {
+    console.log('Received message:', event.data);
+  },
+};
+
+const bankbox = new Bankbox(config);
+
+// Open the Bankbox widget
+bankbox.open();
+
+// Add an event listener for custom events
+bankbox.addEventListener('customEvent', (event) => {
+  console.log('Custom event received:', event.data);
+});
+
+// Send a message to the Bankbox widget
+bankbox.sendMessage({ type: 'customMessage', data: 'Hello, Bankbox!' });
+
+// Check if the script is loaded
+if (bankbox.isScriptLoaded()) {
+  console.log('Bankbox script is loaded');
+}
+
+// Close the Bankbox widget
+bankbox.close();
+
+// Remove the event listener
+bankbox.removeEventListener('customEvent', (event) => {
+  console.log('Custom event received:', event.data);
+});
+    </script>
+</body>
+</html>

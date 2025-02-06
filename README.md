@@ -1,289 +1,172 @@
-# Atlas Pay by Raven
+# @ravenpay/bankbox-me-sdk
 
-[![NPM version][npm-image]][npm-url]
-[![Build][github-build]][github-build-url]
-[![npm-typescript]][npm-typescript]
-[![github-license]][github-license]
+## Introduction
 
-Atlas Pay by Raven bank allows you recieve payments and build powerful checkout experience on your website and apps, to use this you will need to create an account on raven atlas, visit, ["Raven bank"](https://getravenbank.com/raven-atlas) for more.
+`@ravenpay/bankbox-me-sdk` is a JavaScript SDK designed to seamlessly integrate the Bankbox payment widget into web applications. This SDK allows developers to embed and manage the Bankbox widget for handling transactions with customizable configurations.
 
-[**Live Demo**](https://getravenbank.com/)
+## Installation
 
-## ✨ Features
+Install the SDK via npm:
 
-### New
-- Compatibility in all JavaScript environments, including RequireJS and script tags.
-
-### Existing
-
-- Card Payments. (Visa, MasterCard)
-- USSD Payment.
-- Bank Transfers.
-- NQR Payments.
-- Pay with Raven.
-
-## Installation:
-
-````bash
-npm install atlas-pay-sdk
-
-or
-
-```bash
-yarn add atlas-pay-sdk
-````
-
-## Usage :
-
-Atlas-Pay provides you with few Javascript API's to interact with below is an example implementation of the atlas-pay library:
-
-```js
-
-
-
-import './App.css'
-import  AtlasPay  from 'atlas-pay-sdk';
-
-function App() {
-  AtlasPay.onSuccess = function(data) {
-    /**
-     * handle successful payment
-     * (optional) : you can decide to retrieve the onSuccess message we send via data, the message contains the payload of the successful payment.
-    **/
-    console.log('Payment successful:', data);
-  }
-
-  AtlasPay.onClose = function(data) {
-       /**
-     * handle close event, this happens when user closes the payment modal
-     * (optional) : you can decide to retrieve the onClose message we send via data
-     * (optional) : if you want to force close the payment window on onClose you can call the shutdown API within the onClose
-     * (note) : this also triggers when the close modal button is clicked after successful paymen, but the message returned is 'payment_successful' , you can hook into this and do your magic.
-    **/
-
-    console.log('Payment modal Closed:', data);
-
-    // optional shutdown
-    AtlasPay.shutdown()
-  }
-
-  AtlasPay.shutdown() /* This closes the payment window and removes it from your DOM */
-
-  AtlasPay.onResponse = function(data) {
-       /**
-     * handle generate response, this triggers when you try generating a new ref via AtlasPay.generate(), you catch ther response here
-     * (required) : you are to retrieve the response via the data returned
-    **/
-      console.log('We got a response:', data); // or do your stuff here
-  }
-
-
-  AtlasPay.onLoad = function(data) {
-    /**
-  * this triggers when the payment window is loaded onto your dom, it returns for you a payload containing the payment object.
-  * (optional) : you can decide to retrieve the payment object we send via data
- **/
-   console.log('Payment window loaded:', data); // or do your stuff here
-}
-
-  // set up your new payment parameters, along side your secret key
-
-  let config = {
-    "customer_email": "john@example.com",
-    "description" : "test payment",
-    "merchant_ref": "your_merchant_reference",
-    "amount": 100,
-    "redirect_url": "",
-    "payment_methods" : "card,bank_transfer,ussd,raven",
-    "public_key" : "your_atlas_secret_key"
-}
-
-
-  return (
-    <>
-    {/* This button will fire the generate function */}
-    <button onClick={()=> AtlasPay.generate(config)}>Generate New Ref</button>
-
-    {/* This button will fire the init function and load up the payment window */}
-     <button onClick={()=> AtlasPay.init('202304211026JBCAADE')}>Initialize Payment Window</button>
-    </>
-  )
-}
-
-export default App
-
-
+```sh
+npm install @ravenpay/bankbox-me-sdk
 ```
 
-In the example above, we created two functions that you can call to initiate the payment window and generate new payment references.
+Or using yarn:
 
-## Integration
-
-**Browsers**
-
-``` html
-<script src="https://cdn.jsdelivr.net/npm/atlas-pay-sdk@[version]/dist/index.min.js"></script>
-
-<!-- Remember to change the [version] with the actual version you need, it is adviceable to always use the recent versions -->
-
+```sh
+yarn add @ravenpay/bankbox-me-sdk
 ```
 
-After adding the script tag you now have access to `AtlasPaySdk` Object on your browser, refer to the usage for implementation but replace `AtlasPay` with `AtlasPaySdk` i.e `AtlasPaySdk.init()`.
+## Usage
 
+### Importing the SDK
 
-**RequireJS**
+```javascript
+import BankboxManager from '@ravenpay/bankbox-me-sdk';
+```
 
-If you are using RequireJS, you can include Atlas-Pay-SDK like this:
+### Initializing the SDK
 
+Create an instance of `BankboxManager` with the required configuration:
 
-``` js
-require(['path/to/atlas-pay-sdk'], function (AtlasPay) {
+```javascript
+const bankbox = new BankboxManager({
+  appName: 'your-app-name',
+  environment: 'sandbox', // or 'production' only production supported, you can leave blank for production
+  // widgetOptions: {},
+  containerId: 'bankbox-container' //optional,
+  onSuccess: (data) => console.log('Transaction Successful:', data),
+  onFail: (data) => console.log('Transaction Failed:', data),
+  onError: (error) => console.error('Error:', error),
+  onLoad: () => console.log('Bankbox Loaded'),
+});
+```
 
-  // Use AtlasPay object here
-  // Refer to the Usage section for usage examples
+### Mounting the Widget
+
+To mount the Bankbox widget inside a specific container:
+
+```javascript
+bankbox.mount({
+  email: 'user@example.com',
+  amount: 1000,
+  containerId: 'custom-container-id',
+});
+```
+
+### Opening the Widget
+
+To display the Bankbox widget as an overlay:
+
+```javascript
+bankbox.open({
+  email: 'user@example.com',
+  amount: 1000,
+});
+```
+
+### Closing the Widget
+
+To close the Bankbox widget manually:
+
+```javascript
+bankbox.close();
+```
+
+### Event Listeners
+
+You can listen to various events using event listeners:
+
+```javascript
+bankbox.addEventListener('success', (data) => {
+  console.log('Transaction Successful:', data);
 });
 
-```
-
-
-**NodeJS**
-
-In a Node.js environment, you can install Atlas-Pay-SDK with npm:
-
-
-``` bash
-npm install atlas-pay-sdk
-
-```
-
-Then you can use it in your Node.js code like this:
-
-```js
-
-const AtlasPay = require('atlas-pay-sdk');
-
-// Use AtlasPay object here
-// Refer to the Usage section for usage examples
-
-```
-
-
-## API
-
-**`AtlasPay.generate(config: PaymentConfig): void`**
-
-This function is used to generate a new payment reference. The config parameter is an object that contains the following properties:
-
-- customer_email: the email of the customer making the payment
-- description: a brief description of the payment
-- merchant_ref: your unique merchant reference for this payment
-- amount: the amount to be paid
-redirect_url: the URL to redirect the customer to after payment or when customer decides to cancel the payment
-- payment_methods: a comma separated list of payment methods to enable (card, bank_transfer, ussd, raven)
-- secret_key: your secret key
-
-Example:
-
-```js
-let config = {
-  "customer_email": "john@example.com",
-  "description": "test payment",
-  "merchant_ref": "your_merchant_reference",
-  "amount": 100,
-  "redirect_url": "",
-  "payment_methods": "card,bank_transfer,ussd,raven",
-  "secret_key": "your_atlas_secret_key"
-};
-
-AtlasPay.generate(config);
-
-```
-
-**`AtlasPay.init(ref: string): void`**
-
-This function is used to initialize the payment window with the specified `payment_reference`. The `payment_reference` parameter is the reference generated using the `AtlasPay.generate()` function.
-
-Example:
-
-```js
-AtlasPay.init('202304211026JBCAADE');
-
-```
-
-**`AtlasPay.shutdown(): void`**
-
-This method is used to close the payment window and remove it from the DOM.
-
-Example:
-
-```js
-AtlasPay.shutdown();
-
-```
-
-**`AtlasPay.onLoad(data: any): void`**
-
-This callback is triggered when the payment window is loaded onto the DOM. The `data` parameter is an object containing the payment object.
-
-Example:
-
-```js
-AtlasPay.onLoad(function(data) {
-  console.log('Payment window loaded:', data);
+bankbox.addEventListener('fail', (data) => {
+  console.log('Transaction Failed:', data);
 });
 
-```
-
-**`AtlasPay.onSuccess(data: any): void`**
-
-This callback is triggered when a payment is successful. The `data` parameter is an object containing the payload of the successful payment.
-
-Example:
-
-```js
-AtlasPay.onSuccess(function(data) {
-  console.log('Payment successful:', data);
+bankbox.addEventListener('error', (error) => {
+  console.error('Error:', error);
 });
-
 ```
 
-**`AtlasPay.onClose(data: any): void`**
+To remove an event listener:
 
-This callback is triggered when the payment window is closed. The `data` parameter is an object containing the message returned when the payment window is closed.
-
-Example:
-
-```js
-AtlasPay.onClose(function(data) {
-  console.log('Payment modal Closed:', data);
-});
-
+```javascript
+bankbox.removeEventListener('success', callbackFunction);
 ```
 
-**`AtlasPay.onResponse(data: any): void`**
+### Destroying the Widget
 
-This callback is triggered when a new payment reference is generated using the `AtlasPay.generate()` function. The data parameter is an object containing the response returned from the server.
+To completely remove the Bankbox instance and clean up event listeners:
 
-Example:
-
-```js
-AtlasPay.onResponse(function(data) {
-  console.log('We got a response:', data);
-});
-
+```javascript
+bankbox.destroy();
 ```
+
+## Configuration Options
+
+| Property       | Type       | Description |
+|---------------|------------|-------------|
+| `appName`      | `string`   | Your application name |
+| `environment`  | `'sandbox' | 'production'` | The environment for transactions |
+| `widgetOptions` | `object`  | Additional configuration options for the widget |
+| `containerId`  | `string`   | ID of the container element for embedding the widget |
+| `onSuccess`    | `function` | Callback triggered on successful transactions |
+| `onFail`      | `function`  | Callback triggered on failed transactions |
+| `onError`     | `function`  | Callback triggered on widget errors |
+| `onLoad`      | `function`  | Callback triggered when the widget loads |
+
+## Events
+
+| Event Type | Description |
+|------------|-------------|
+| `success`  | Triggered when a transaction is successful |
+| `fail`     | Triggered when a transaction fails |
+| `error`    | Triggered when an error occurs in the widget |
+| `load`     | Triggered when the widget loads |
+
+
+## Styling Notes
+The default container includes:
+- Semi-transparent overlay with blur effect
+- Bottom-mounted modal with rounded corners
+- Close button styled with black background
+- Responsive iframe sizing
+
+Override styles by:
+- Providing your own container element
+- Adding custom CSS rules targeting `#bankbox-container`
+
+## Security Considerations
+- Uses `postMessage` with strict origin validation
+- Ensure your domain is whitelisted for production use
+- Never expose API keys in client-side code
+
+## Browser Support
+Modern browsers (Chrome 80+, Firefox 72+, Safari 13+). Requires:
+- ES6 support
+- Promise API
+- `postMessage` API
+
+## Troubleshooting
+### Widget not loading:
+- Check if the container element exists in the DOM
+- Verify network requests aren't blocked
+- Ensure correct environment configuration
+
+### Events not firing:
+- Verify origin matches your `appName` configuration
+- Check for console errors
+- Ensure event listeners are registered before mount
+
+
 
 ## License
 
-AtlasPay by Raven bank is licensed under the [**MIT**](http://opensource.org/licenses/MIT)
+MIT License. See [LICENSE](LICENSE) for details.
 
 
 
-[npm-url]: https://www.npmjs.com/package/raven-bank-ui
-[npm-image]: https://img.shields.io/npm/v/my-react-typescript-package
-[github-license]: https://img.shields.io/github/license/gapon2401/my-react-typescript-package
-[github-license-url]: https://github.com/gapon2401/my-react-typescript-package/blob/master/LICENSE
-[github-build]: https://github.com/gapon2401/my-react-typescript-package/actions/workflows/publish.yml/badge.svg
-[github-build-url]: https://github.com/gapon2401/my-react-typescript-package/actions/workflows/publish.yml
-
-[npm-typescript]: https://img.shields.io/npm/types/my-react-typescript-package

@@ -2,10 +2,11 @@
   "compilerOptions": {
     "moduleResolution": "node",
     "module": "esnext",
-    "target": "es5",
+    "target": "es2015",
     "lib": [
       "dom",
-      "es2018"
+      "es2018",
+      "ES2015"
     ],
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

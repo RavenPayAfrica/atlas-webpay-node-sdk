@@ -9,5 +9,9 @@
   "files.associations": {
     "tslint*.json": "jsonc"
   },
-  "liveServer.settings.port": 5502
+  "liveServer.settings.port": 5502,
+  "cSpell.words": [
+    "Bankbox",
+    "providus"
+  ]
 }
